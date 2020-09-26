@@ -1,0 +1,58 @@
+{
+	"name": "jsv",
+	"description": "A language server using language services to support embedded vue-html inject to javascript",
+	"author": "Microsoft Corporation",
+	"license": "MIT",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Microsoft/vscode-extension-samples"
+	},
+	"publisher": "RuiGe24601",
+	"categories": [],
+	"keywords": ["jsv","vue"],
+	"engines": {
+		"vscode": "^1.43.0"
+	},
+	"activationEvents": [
+		"onLanguage:js", 
+		"onLanguage:ts"
+	],
+	"main": "./client/out/extension",
+	"contributes": {
+		"grammars": [
+			{
+				"scopeName": "source.jsv",
+				"injectTo": ["source.js"],
+				"path": "./syntaxes/jsv.tmLanguage.json",
+				"embeddedLanguages": {
+					"text.html.vue-html": "vue-html"
+        }
+			},
+			{
+				"scopeName": "source.tsv",
+				"injectTo": ["source.ts"],
+				"path": "./syntaxes/tsv.tmLanguage.json",
+				"embeddedLanguages": {
+					"text.html.vue-html": "vue-html"
+        }
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "cd client && npm install && cd .. && npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"test": "sh ./scripts/e2e.sh",
+		"yaml": "npx js-yaml syntaxes/jsv.yaml > syntaxes/jsv.tmLanguage.json  && npx js-yaml syntaxes/tsv.yaml > syntaxes/tsv.tmLanguage.json"
+	},
+	"devDependencies": {
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.12.0",
+		"@typescript-eslint/eslint-plugin": "^3.0.2",
+		"@typescript-eslint/parser": "^3.0.2",
+		"eslint": "^7.1.0",
+		"typescript": "^4.0.2"
+	}
+}
